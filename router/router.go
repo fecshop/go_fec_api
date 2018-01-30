@@ -60,6 +60,18 @@ func Begin() {
         v1.POST("/cms/articles/coll",  func(c *gin.Context) {
             handler.Article.Coll(c, mysqlDB)
         })
+        v1.POST("/cms/articles/save",  func(c *gin.Context) {
+            handler.Article.Save(c, mysqlDB)
+        })
+        v1.POST("/cms/articles/updateUrlKeyInfo",  func(c *gin.Context) {
+            handler.Article.UpdateUrlKeyInfo(c, mysqlDB)
+        })
+        v1.POST("/cms/articles/delById",  func(c *gin.Context) {
+            handler.Article.DelById(c, mysqlDB)
+        })
+        v1.POST("/cms/articles/delByIds",  func(c *gin.Context) {
+            handler.Article.DelByIds(c, mysqlDB)
+        })
     }
         
         
