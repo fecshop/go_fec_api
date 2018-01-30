@@ -3,6 +3,8 @@ package router
 import (
 	"github.com/gin-gonic/gin"
 	//"io"
+    "strconv"
+    "log"
 	"github.com/fecshop/go_fec_api/config"
 	"github.com/fecshop/go_fec_api/handler"
     _ "github.com/go-sql-driver/mysql" 
@@ -18,9 +20,17 @@ func mysqlDBPool() *mysqlPool.SQLConnPool{
     password     := config.Get("mysql_password")
     charset      := config.Get("mysql_charset")
     // 用于设置最大打开的连接数
-    maxOpenConns := config.Get("mysql_maxOpenConns")
+    //maxOpenConns := int(config.Get("mysql_maxOpenConns"))
+    maxOpenConns, err := strconv.Atoi(config.Get("mysql_maxOpenConns"))
+    if err == nil { 
+        log.Println("maxOpenConns convert int fail")
+    }
     // 用于设置闲置的连接数
-    maxIdleConns := config.Get("mysql_maxIdleConns")
+    //maxIdleConns := int(config.Get("mysql_maxIdleConns"))
+    maxIdleConns, err := strconv.Atoi(config.Get("mysql_maxIdleConns"))
+    if err == nil { 
+        log.Println("maxIdleConns convert int fail")
+    }
     mysqlDB := mysqlPool.InitMySQLPool(host, database, user, password, charset, maxOpenConns, maxIdleConns)
     return mysqlDB
 }

@@ -1,3 +1,4 @@
+package config
 /* 新建文件config.go, 然后将下面的内容复制进去，添加或者更改相应的配置即可
 package config
 

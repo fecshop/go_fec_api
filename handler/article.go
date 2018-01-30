@@ -26,9 +26,6 @@ type ArticleData struct{}
 
 var Article ArticleData
 
-
-
-
 // 得到article表的id
 func (Article ArticleData) PrimaryKey(c *gin.Context, mysqlDB *mysqlPool.SQLConnPool){
     c.AbortWithStatusJSON(http.StatusOK, gin.H{
@@ -36,8 +33,6 @@ func (Article ArticleData) PrimaryKey(c *gin.Context, mysqlDB *mysqlPool.SQLConn
         "data":"id",
     })
 }
-
-
 
 // 通过url key 得到article
 func (Article ArticleData) OneByUrlKey(c *gin.Context, mysqlDB *mysqlPool.SQLConnPool){
@@ -70,9 +65,6 @@ func (Article ArticleData) OneByUrlKey(c *gin.Context, mysqlDB *mysqlPool.SQLCon
     })
 }
 
-
-
-
 // 通过id 得到article 
 func (Article ArticleData) OneById(c *gin.Context, mysqlDB *mysqlPool.SQLConnPool){
     id := string(c.Query("id"));
@@ -104,20 +96,18 @@ func (Article ArticleData) OneById(c *gin.Context, mysqlDB *mysqlPool.SQLConnPoo
     })
 }
 
-type xxx struct {
-    CountSql              string      `form:"countSql" json:"countSql" `   // binding:"required"
+type collParam struct {
+    CountSql             string      `form:"countSql" json:"countSql" `   // binding:"required"
     AllSql               string      `form:"allSql" json:"allSql" `
 }
 
 // 通过id 得到article 
 func (Article ArticleData) Coll(c *gin.Context, mysqlDB *mysqlPool.SQLConnPool){
-    var p xxx
+    var p collParam
     c.BindJSON(&p)
-    
     countSql := p.CountSql;
-    allSql := p.AllSql;
+    allSql   := p.AllSql;
     
-   // countSql = c.PostForm("countSql")
     if countSql == "" {
         ParamErr(c, `countSql is empty`)
         return 
